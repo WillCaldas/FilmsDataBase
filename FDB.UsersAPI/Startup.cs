@@ -1,4 +1,5 @@
 using FDB.UsersAPI.Data;
+using FDB.UsersAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,11 +36,17 @@ namespace FDB.UsersAPI
             services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
                 .AddEntityFrameworkStores<UserDbContext>();
 
+            services.AddScoped<LoginService, LoginService>();
+            services.AddScoped<RegisterService, RegisterService>();
+            services.AddScoped<TokenService, TokenService>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FDB.UsersAPI", Version = "v1" });
             });
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

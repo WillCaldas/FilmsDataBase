@@ -11,7 +11,7 @@ namespace FDB.UsersAPI.Profiles
         public UserProfile()
         {
             CreateMap<CreateUserDto, User>();
-            CreateMap<User, IdentityUser>();
+            CreateMap<User, IdentityUser<int>>();
         }
     }
 }
